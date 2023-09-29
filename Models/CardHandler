@@ -1,0 +1,31 @@
+using System;
+
+namespace Models
+{
+        class CardHandler()
+    {
+        public CardHandler()
+        {
+            
+        }
+
+        public (char value, string suit)[] BuildDeck()
+        {
+            var deck = new (char value, string suit)[40];
+
+            var values = new char[]{'4','5','6','7','Q','J','K','A','2','3'};
+            var suits = new string[] {"ouros","espadas","copas","zap"};
+            var index = 0;
+            foreach(var value in values)
+            {
+                foreach(var suit in suits)
+                {
+                    deck[index] = (value, suit);
+                    index ++;
+                }
+            }
+
+            return deck;
+        }
+    }
+}

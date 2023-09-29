@@ -1,0 +1,15 @@
+D:\dev\CTruco\bin\Debug\net7.0\CTruco.exe
+D:\dev\CTruco\bin\Debug\net7.0\CTruco.deps.json
+D:\dev\CTruco\bin\Debug\net7.0\CTruco.runtimeconfig.json
+D:\dev\CTruco\bin\Debug\net7.0\CTruco.dll
+D:\dev\CTruco\bin\Debug\net7.0\CTruco.pdb
+D:\dev\CTruco\obj\Debug\net7.0\CTruco.csproj.AssemblyReference.cache
+D:\dev\CTruco\obj\Debug\net7.0\CTruco.GeneratedMSBuildEditorConfig.editorconfig
+D:\dev\CTruco\obj\Debug\net7.0\CTruco.AssemblyInfoInputs.cache
+D:\dev\CTruco\obj\Debug\net7.0\CTruco.AssemblyInfo.cs
+D:\dev\CTruco\obj\Debug\net7.0\CTruco.csproj.CoreCompileInputs.cache
+D:\dev\CTruco\obj\Debug\net7.0\CTruco.dll
+D:\dev\CTruco\obj\Debug\net7.0\refint\CTruco.dll
+D:\dev\CTruco\obj\Debug\net7.0\CTruco.pdb
+D:\dev\CTruco\obj\Debug\net7.0\CTruco.genruntimeconfig.cache
+D:\dev\CTruco\obj\Debug\net7.0\ref\CTruco.dll
