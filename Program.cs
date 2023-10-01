@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using Models;
 
 namespace CTruco
 {
@@ -8,39 +9,33 @@ namespace CTruco
     {
         static void Main(string[] args)
         {
-            //step 1: create deck cards
-            var deck = new (char value, string suit)[40];
+            var cardHandler = new CardHandler();
+            var screenRender = new OffGameRender();
+            var inGame = false;
 
-            var values = new char[]{'4','5','6','7','Q','J','K','A','2','3'};
-            var suits = new string[] {"ouros","espadas","copas","zap"};
-            var index = 0;
-            foreach(var value in values)
+            //step 1: sort cards for players
+            cardHandler.CardSorting();
+            var playerHand = cardHandler.PlayerHand;
+            var cpuHand = cardHandler.CpuHand;
+            var flipped = cardHandler.Flipped;
+
+            //step 2: start game
+            screenRender.TitleScreen();
+
+            while(!inGame)
             {
-                foreach(var suit in suits)
+                switch(screenRender.UserActionKey)
                 {
-                    deck[index] = (value, suit);
-                    index ++;
+                    case '0': screenRender.TitleScreen(); break;
+                    case '1': inGame = true; break;
+                    case '2': screenRender.ShowInstructions(); break;
+                    case '3': screenRender.ShowCredits(); break;
+                    case '4': screenRender.FinishApp(); break;
+                    default: screenRender.TitleScreen(); break;
                 }
             }
 
-            //step 2: sort cards for players
-            var cardIndexes = new int[7]; //3 cards for each player and a flipped card on table
-            var i = 0;
-            while(i < 7)
-            {
-                var random = new Random();
-                int cardIndex = random.Next(40);
-                if(!cardIndexes.Contains(cardIndex))
-                {
-                    cardIndexes[i] = cardIndex;
-                    i++;
-                }
-            }
-            (char value, string suit)[] playerHand = {deck[cardIndexes[0]], deck[cardIndexes[1]], deck[cardIndexes[2]]};
-            (char value, string suit)[] CpuHand = {deck[cardIndexes[3]], deck[cardIndexes[4]], deck[cardIndexes[5]]};
-            var flipped = deck[cardIndexes[6]];
-
-            //step 3: start round
+            //sample code
             Console.WriteLine("--------------------------------------------------------------");
             Console.WriteLine($"O tombo da rodada é {flipped}");
             Console.WriteLine("--------------------------------------------------------------");
