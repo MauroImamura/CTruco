@@ -5,7 +5,7 @@ namespace Models
     public class CardHandler
     {
         private readonly char[] _values = new char[]{'4','5','6','7','Q','J','K','A','2','3'};
-        private readonly string[] _suits = new string[] {"ouros","espadas","copas","zap"};
+        private readonly string[] _suits = new string[] {"ouros","espadas","copas","paus"};
         public (char value, string suit)[] Deck { get; private set; }
         public (char value, string suit)[] PlayerHand {get; private set;} = new(char value, string suit)[3] {(' ',""),(' ',""),(' ',"")};
         public (char value, string suit)[] CpuHand {get; private set;} = new(char value, string suit)[3] {(' ',""),(' ',""),(' ',"")};
