@@ -9,43 +9,57 @@ namespace CTruco
     {
         static void Main(string[] args)
         {
-            var cardHandler = new CardHandler();
-            var screenRender = new OffGameRender();
             var inGame = false;
+            var runApp = true;
+            var offScreenRender = new OffMatchRender();
+            var inScreenRender = new InMatchRender();
+            while(runApp)
+            {
+                if(inGame)
+                    inGame = InRoundExec(inScreenRender);
+                else
+                    inGame = OffRoundExec(offScreenRender);
+            }
+        }
 
-            //step 1: sort cards for players
+        private static bool OffRoundExec(OffMatchRender offScreenRender)
+        {
+            var _inGame = false;
+            switch(offScreenRender.UserActionKey)
+            {
+                case '1': _inGame = offScreenRender.StartNewMatch(); break;
+                case '2': offScreenRender.ShowInstructions(); break;
+                case '3': offScreenRender.ShowCredits(); break;
+                case '4': offScreenRender.FinishApp(); break;
+                default: offScreenRender.TitleScreen(); break;
+            }
+            return _inGame;
+        }
+
+        private static bool InRoundExec(InMatchRender inScreenRender)
+        {
+            var _inGame = true;
+            var cardHandler = new CardHandler();
+            var score = new Score();
             cardHandler.CardSorting();
             var playerHand = cardHandler.PlayerHand;
             var cpuHand = cardHandler.CpuHand;
             var flipped = cardHandler.Flipped;
-
-            //step 2: start game
-            screenRender.TitleScreen();
-
-            while(!inGame)
+            var winner = "";
+            var rounds = new string[3];
+            var roundValue = 1;
+            inScreenRender.StartRound(playerHand,cpuHand,flipped,0,0,roundValue);
+            inScreenRender.ShowCardOptions(roundValue);
+            switch(inScreenRender.UserActionKey)
             {
-                switch(screenRender.UserActionKey)
-                {
-                    case '0': screenRender.TitleScreen(); break;
-                    case '1': inGame = true; break;
-                    case '2': screenRender.ShowInstructions(); break;
-                    case '3': screenRender.ShowCredits(); break;
-                    case '4': screenRender.FinishApp(); break;
-                    default: screenRender.TitleScreen(); break;
-                }
+                case '0': _inGame = false; break;
+                case '1': break;
+                case '2': break;
+                case '3': break;
+                case '4': break;
+                default: break;
             }
-
-            //sample code
-            Console.WriteLine("--------------------------------------------------------------");
-            Console.WriteLine($"O tombo da rodada é {flipped}");
-            Console.WriteLine("--------------------------------------------------------------");
-            Console.WriteLine("Suas cartas são:");
-            Console.WriteLine("");
-            Console.WriteLine($"Carta 1: {playerHand[0]}");
-            Console.WriteLine("");
-            Console.WriteLine($"Carta 2: {playerHand[1]}");
-            Console.WriteLine("");
-            Console.WriteLine($"Carta 3: {playerHand[2]}");
+            return _inGame;
         }
     }
 }

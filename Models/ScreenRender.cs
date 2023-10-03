@@ -2,7 +2,7 @@ using System;
 
 namespace Models
 {
-    public class OffGameRender
+    public class OffMatchRender
     {
         public char UserActionKey { get; private set; } = ' ';
 
@@ -81,7 +81,64 @@ namespace Models
             Console.ReadKey();
             TitleScreen();
         }
+
+        public bool StartNewMatch()
+        {
+            UserActionKey = '0';
+            return true; //inGame status
+        }
     }
 
-    //TODO new class for inGame status
+    public class InMatchRender
+    {
+        public char UserActionKey { get; private set; } = ' ';
+        public int RoundValue { get; private  set; } = 1;
+        
+        public void StartRound((char value, string suit)[] playerHand, (char value, string suit)[] cpuHand, (char value, string suit) flipped, int playerScore, int cpuScore, int roundValue)
+        {
+            RoundValue = roundValue;
+            Console.WriteLine();
+            Console.WriteLine($"   JOGADOR {playerScore} x {cpuScore} CPU");
+            Console.WriteLine();
+            Console.WriteLine("--------------------------------------------------------------");
+            Console.WriteLine($"   O tombo da rodada é {flipped}");
+            Console.WriteLine("--------------------------------------------------------------");
+            Console.WriteLine();
+            Console.WriteLine("   Suas cartas são:");
+            Console.WriteLine("");
+            Console.WriteLine($"      Carta 1: {playerHand[0]}");
+            Console.WriteLine("");
+            Console.WriteLine($"      Carta 2: {playerHand[1]}");
+            Console.WriteLine("");
+            Console.WriteLine($"      Carta 3: {playerHand[2]}");
+            Console.WriteLine();
+        }
+
+        public void ShowCardOptions(int roundValue)
+        {
+            Console.WriteLine("   Faça sua jogada:");
+            Console.WriteLine();
+            Console.WriteLine("      1 - Jogar carta 1");
+            Console.WriteLine("      2 - Jogar carta 2");
+            Console.WriteLine("      3 - Jogar carta 3");
+            switch(roundValue)
+            {
+                case 3:
+                    Console.WriteLine("      4 - Pedir Seis");
+                    break;
+                case 6:
+                    Console.WriteLine("      4 - Pedir Nove"); 
+                    break;
+                case 9:
+                    Console.WriteLine("      4 - Pedir Doze"); 
+                    break;
+                default: 
+                    Console.WriteLine("      4 - Pedir Truco"); 
+                    break;
+            }
+            Console.WriteLine("      5 - Correr");
+            Console.WriteLine("      0 - Encerrar partida");
+            UserActionKey = Console.ReadKey().KeyChar;
+        }
+    }
 }
