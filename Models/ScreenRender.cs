@@ -107,38 +107,80 @@ namespace Models
             Console.WriteLine("   Suas cartas são:");
             Console.WriteLine("");
             Console.WriteLine($"      Carta 1: {playerHand[0]}");
-            Console.WriteLine("");
             Console.WriteLine($"      Carta 2: {playerHand[1]}");
-            Console.WriteLine("");
             Console.WriteLine($"      Carta 3: {playerHand[2]}");
             Console.WriteLine();
         }
 
-        public void ShowCardOptions(int roundValue)
+        public void ShowCardOptions(int roundValue, (char value, string suit)[] playerHand)
         {
             Console.WriteLine("   Faça sua jogada:");
             Console.WriteLine();
-            Console.WriteLine("      1 - Jogar carta 1");
-            Console.WriteLine("      2 - Jogar carta 2");
-            Console.WriteLine("      3 - Jogar carta 3");
+
+            var playNormalButtons = new char[]{'1','2','3'};
+            var playCoveredButtons = new char[]{'Q','W','E'};
+
+            var normalCardCommand = "";
+            var coveredCardCommand = "";
+
+            for(var i = 0; i < 3; i++)
+            {
+                if(playerHand[i].value != '0')
+                {
+                    normalCardCommand += $"   [{playNormalButtons[i]} - jogar carta {i+1}]";
+                    coveredCardCommand += $"   [{playCoveredButtons[i]} - encobrir carta {i+1}]";
+                }
+            }
+            Console.WriteLine(normalCardCommand);
+            Console.WriteLine(coveredCardCommand);
+
             switch(roundValue)
             {
                 case 3:
-                    Console.WriteLine("      4 - Pedir Seis");
+                    Console.WriteLine("   [4 - pedir Seis]   [5 - correr]   [0 - encerrar partida]");
                     break;
                 case 6:
-                    Console.WriteLine("      4 - Pedir Nove"); 
+                    Console.WriteLine("   [4 - pedir Nove]   [5 - correr]   [0 - encerrar partida]"); 
                     break;
                 case 9:
-                    Console.WriteLine("      4 - Pedir Doze"); 
+                    Console.WriteLine("   [4 - pedir Doze]   [5 - correr]   [0 - encerrar partida]"); 
+                    break;
+                case 12:
+                    Console.WriteLine("   [5 - correr]   [0 - encerrar partida]"); 
                     break;
                 default: 
-                    Console.WriteLine("      4 - Pedir Truco"); 
+                    Console.WriteLine("   [4 - pedir Truco]   [5 - correr]   [0 - encerrar partida]"); 
                     break;
             }
-            Console.WriteLine("      5 - Correr");
-            Console.WriteLine("      0 - Encerrar partida");
             UserActionKey = Console.ReadKey().KeyChar;
+        }
+
+        public void PlayCard((char value,string suit) card)
+        {
+            Console.WriteLine();
+            Console.WriteLine($"   Você jogou {card}");
+            Console.WriteLine();
+        }
+
+        public void CoverCard()
+        {
+            Console.WriteLine();
+            Console.WriteLine($"   Você jogou encoberto");
+            Console.WriteLine();
+        }
+
+        public void Flee()
+        {
+            Console.WriteLine();
+            Console.WriteLine($"   Você correu");
+            Console.WriteLine();
+        }
+
+        public void CpuCard((char value,string suit) card)
+        {
+            Console.WriteLine();
+            Console.WriteLine($"   Cpu jogou {card}");
+            Console.WriteLine();
         }
     }
 }
