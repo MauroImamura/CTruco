@@ -4,10 +4,12 @@ namespace Models
 {
     public interface ICpuStrategy
     {
-        char FirstRound((char value, string suit) flipped, (char value, string suit)? playerCard, (char value, string suit)[] cpuHand);
+        int FirstRound(Card[] cpuHand, char starter, Card? playerCard = null);
 
-        char SecondRoun();
+        int SecondRoun(Card[] cpuHand, char starter, Card? playerCard = null);
 
-        char ThirdRound();
+        int ThirdRound(Card[] cpuHand, char starter, Card? playerCard = null);
+
+        int PlayRound(Card[] cpuHand, char starter, int roundNumber, Card? playerCard = null);
     }
 }

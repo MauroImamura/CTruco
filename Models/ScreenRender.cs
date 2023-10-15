@@ -21,7 +21,7 @@ namespace Models
             Console.WriteLine("1 - Start");
             Console.WriteLine("2 - Instruções");
             Console.WriteLine("3 - Créditos");
-            Console.WriteLine("4 - Sair");
+            Console.WriteLine("0 - Sair");
             Console.WriteLine("");
             Console.WriteLine("Selecione uma ação (1/2/3/4)");
             UserActionKey = Console.ReadKey(false).KeyChar;
@@ -84,7 +84,7 @@ namespace Models
 
         public bool StartNewMatch()
         {
-            UserActionKey = '0';
+            UserActionKey = ' ';
             return true; //inGame status
         }
     }
@@ -94,7 +94,7 @@ namespace Models
         public char UserActionKey { get; private set; } = ' ';
         public int RoundValue { get; private  set; } = 1;
         
-        public void StartRound((char value, string suit)[] playerHand, (char value, string suit)[] cpuHand, (char value, string suit) flipped, int playerScore, int cpuScore, int roundValue)
+        public void StartRound(Card[] playerHand, Card[] cpuHand, Card flipped, int playerScore, int cpuScore, int roundValue)
         {
             RoundValue = roundValue;
             Console.WriteLine();
@@ -112,7 +112,7 @@ namespace Models
             Console.WriteLine();
         }
 
-        public void ShowCardOptions(int roundValue, (char value, string suit)[] playerHand)
+        public void ShowCardOptions(int roundValue, Card[] playerHand)
         {
             Console.WriteLine("   Faça sua jogada:");
             Console.WriteLine();
@@ -125,7 +125,7 @@ namespace Models
 
             for(var i = 0; i < 3; i++)
             {
-                if(playerHand[i].value != '0')
+                if(playerHand[i].Value != '0')
                 {
                     normalCardCommand += $"   [{playNormalButtons[i]} - jogar carta {i+1}]";
                     coveredCardCommand += $"   [{playCoveredButtons[i]} - encobrir carta {i+1}]";
@@ -155,7 +155,7 @@ namespace Models
             UserActionKey = Console.ReadKey().KeyChar;
         }
 
-        public void PlayCard((char value,string suit) card)
+        public void PlayCard(Card card)
         {
             Console.WriteLine();
             Console.WriteLine($"   Você jogou {card}");
@@ -176,7 +176,7 @@ namespace Models
             Console.WriteLine();
         }
 
-        public void CpuCard((char value,string suit) card)
+        public void CpuCard(Card card)
         {
             Console.WriteLine();
             Console.WriteLine($"   Cpu jogou {card}");

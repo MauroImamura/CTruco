@@ -1,36 +1,57 @@
-using System;
+using System.Linq;
 
 namespace Models
 {
     public class EasyCpuStrategy : ICpuStrategy
     {
-        public char FirstRound((char value, string suit) flipped, (char value, string suit)? playerCard, (char value, string suit)[] cpuHand)
+
+        public int PlayRound(Card[] cpuHand, char starter, int roundNumber, Card? playerCard = null)
         {
+            var choice = 0;
+
+            switch(roundNumber)
+            {
+                case 0: choice = FirstRound(cpuHand, starter, playerCard); break;
+                case 1: choice = SecondRoun(cpuHand, starter, playerCard); break;
+                case 2: choice = ThirdRound(cpuHand, starter, playerCard); break;
+                default: break;
+            }
+
+            return choice;
+        }
+
+        public int FirstRound(Card[] cpuHand, char starter, Card? playerCard = null)
+        {
+            var maxStrength = cpuHand.Max(x => x.Strength);
+
             if(playerCard is null)
             {
-                //play highest card
-                //return its index
-                Console.WriteLine("is null");
-                return '1';
+                return Array.IndexOf(cpuHand, cpuHand.Where(x => x.Strength == maxStrength).First());
             }
             else
             {
-                //play highest card if it is enough to win the round
-                //play highest card bellow player's card if there is no winner card available in hand
-                //return its index
-                Console.WriteLine("is not null");
-                return '2';
+                return Array.IndexOf(cpuHand, cpuHand.Where(x => x.Strength != maxStrength).First());
             }
         }
 
-        public char SecondRoun()
+        public int SecondRoun(Card[] cpuHand, char starter, Card? playerCard = null)
         {
-            throw new NotImplementedException();
+
+            var maxStrength = cpuHand.Max(x => x.Strength);
+
+            if(starter == 'c')
+            {
+                return Array.IndexOf(cpuHand, cpuHand.Where(x => x.Strength != maxStrength && x.Strength != 0).First());
+            }
+            else
+            {
+                return Array.IndexOf(cpuHand, cpuHand.Where(x => x.Strength == maxStrength).First());
+            }
         }
 
-        public char ThirdRound()
+        public int ThirdRound(Card[] cpuHand, char starter, Card? playerCard = null)
         {
-            throw new NotImplementedException();
+            return Array.IndexOf(cpuHand, cpuHand.Where(x => x.Strength != 0).First());
         }
     }
 }
